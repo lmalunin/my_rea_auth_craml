@@ -90,7 +90,8 @@ const UserInfo = (): JSX.Element => {
     return encodedHash;
   }
   
-  let link :string = '';
+  let linkEsia :string = '';
+  let linkMobileId :string = '';
   
   if (token) {
     
@@ -108,13 +109,16 @@ const UserInfo = (): JSX.Element => {
     const nonce = crypto.randomUUID();
     const session_state: string = tokenData?.session_state;
     const clientId = 'datashop';
-    const provider = 'esia';
+    const providerEsia = 'esia';
+    const providerMobileId = 'mobileid';
     
-    const strRes = nonce + session_state + clientId + provider;
+    const strResEsia = nonce + session_state + clientId + providerEsia;
+    const strResMobileId = nonce + session_state + clientId + providerMobileId;
     
-    console.log('strRes', strRes);
+    //console.log('strRes', strRes);
     
-    link = `https://sso2.beta.moex.com/auth/realms/craml-rc/broker/esia/link?client_id=datashop&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&nonce=${nonce}&hash=${sha256hash(strRes)}`
+    linkEsia = `https://sso2.beta.moex.com/auth/realms/craml-rc/broker/${providerEsia}/link?client_id=datashop&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&nonce=${nonce}&hash=${sha256hash(strResEsia)}`
+    linkMobileId = `https://sso2.beta.moex.com/auth/realms/craml-rc/broker/${strResMobileId}/link?client_id=datashop&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&nonce=${nonce}&hash=${sha256hash(strResMobileId)}`
   }
   
   return <>
@@ -127,9 +131,15 @@ const UserInfo = (): JSX.Element => {
     
     <button onClick={()=>window.location.href='http://localhost:3000'}>Home</button>
     <button onClick={()=>login()}>Login</button>
-    <a target="_blank" rel="noreferrer" href={link}>
-      ESIA
+    <span>  </span>
+    <a target="_blank" rel="noreferrer" href={linkEsia}>
+        ESIA
     </a>
+    <span>  </span>
+    <a target="_blank" rel="noreferrer" href={linkMobileId}>
+        MobileId
+    </a>
+    <span>  </span>
     <button onClick={()=>logOut()}>Logout</button>
   </>
 }
