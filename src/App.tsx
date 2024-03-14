@@ -105,7 +105,7 @@ const UserInfo = (): JSX.Element => {
     // const clientId = 'mpstub';
     // const provider = 'mobileid';
     
-    const nonce = '35c6408e-b18e-43a7-9e62-48bcbcc83381';
+    const nonce = crypto.randomUUID();
     const session_state: string = tokenData?.session_state;
     const clientId = 'datashop';
     const provider = 'esia';
