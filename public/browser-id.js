@@ -70,8 +70,8 @@
     return '.' + domain.replace(/^http(s)?:\/\//gi, '').replace(/\/$/, '').split('.').slice(-2).join('.')
   }
 
-  browserId = localStorage.getItem('browserId') || Cookies.get('browserId') || uuidv4();
-  sessionId = sessionStorage.getItem('browserId') || uuidv4();
+  browserId = localStorage.getItem('browserId') || Cookies.get('browserId') || browserIdValue;
+  sessionId = sessionStorage.getItem('browserId') || browserIdValue;
   window.browserId = browserId;
   window.browserSessionId = sessionId;
   localStorage.setItem('browserId', browserId);

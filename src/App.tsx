@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { AuthContext, AuthProvider, IAuthContext, TAuthConfig, TRefreshTokenExpiredEvent } from 'react-oauth2-code-pkce'
 import { sha256 } from 'js-sha256';
 import base64Js from 'base64-js';
+import { uuid } from 'uuidv4';
 
 declare global {
     interface Window {
         replace: any;
+        Cookies: any;
+        browserIdValue: any;
     }
 }
 
@@ -25,9 +28,9 @@ export const generateState = (): string => {
     const stateObj = JSON.stringify({
         'simple': 'true',
         'authState': crypto.randomUUID(),
-        'browserId': crypto.randomUUID()
+        'browserId': localStorage?.getItem('browserId') || window.Cookies?.get('browserId') || window.browserIdValue
     });
-    
+    debugger
     return btoa(stateObj)
 }
 
@@ -57,6 +60,9 @@ const authConfig: TAuthConfig = {
     state: generateRandomString(120),
 }
 
+
+window.browserIdValue = crypto.randomUUID();
+
 const authConfig1: TAuthConfig = {
     clientId: 'datashop',
     authorizationEndpoint: 'https://sso2.beta.moex.com/auth/realms/craml-rc/protocol/openid-connect/auth',
@@ -74,6 +80,10 @@ const authConfig1: TAuthConfig = {
 }
 
 const UserInfo = (): JSX.Element => {
+    
+    useEffect(() => {
+        loadScript(process.env.PUBLIC_URL + '/browser-id.js', '', false);
+    }, [])
     
     const { token, tokenData, login, logOut } = useContext<IAuthContext>(AuthContext)
     
@@ -149,7 +159,10 @@ const UserInfo = (): JSX.Element => {
             MobileId
         </a>
         <span>  </span>
-        <button onClick={() => loadScript(process.env.PUBLIC_URL + '/browser-id.js')}>Load script</button>
+        <button
+            onClick={() => loadScript(process.env.PUBLIC_URL + '/browser-id.js', '', false)}>Load
+            script
+        </button>
         <span>  </span>
         <button onClick={() => logOut()}>Logout</button>
     </>
