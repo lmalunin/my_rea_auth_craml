@@ -30,7 +30,7 @@ export const generateState = (): string => {
         'authState': crypto.randomUUID(),
         'browserId': localStorage?.getItem('browserId') || window.Cookies?.get('browserId') || window.browserIdValue
     });
-    debugger
+    
     return btoa(stateObj)
 }
 
@@ -62,6 +62,7 @@ const authConfig: TAuthConfig = {
 
 
 window.browserIdValue = crypto.randomUUID();
+console.log('browserIdValue app', window.browserIdValue)
 
 const authConfig1: TAuthConfig = {
     clientId: 'datashop',
@@ -160,7 +161,7 @@ const UserInfo = (): JSX.Element => {
         </a>
         <span>  </span>
         <button
-            onClick={() => loadScript(process.env.PUBLIC_URL + '/browser-id.js', '', false)}>Load
+            onClick={() => loadScript('browser-id.js', '', false)}>Load
             script
         </button>
         <span>  </span>

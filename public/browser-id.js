@@ -1,5 +1,4 @@
 (function () {
-  debugger
   /*! js-cookie v3.0.5 | MIT */
   !function (e, t) {
     "object" == typeof exports && "undefined" != typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define(t) : (e = "undefined" != typeof globalThis ? globalThis : e || self, function () {
@@ -83,6 +82,8 @@
     sameSite: 'strict',
     domain: normalizeDomain(window.location.hostname)
   });
+
+  console.log('browserIdValue script', browserIdValue)
 })();
 window.dataLayer = window.dataLayer || [];
 window.dataLayer.push({'browser_id': browserId, 'session_id': sessionId});
