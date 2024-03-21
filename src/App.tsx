@@ -11,6 +11,15 @@ declare global {
     }
 }
 
+export const loadScript = (url?: string, content?: string, defer = true) => {
+    const script = document.createElement('script');
+    script.innerHTML = content ?? '';
+    script.src = url ?? '';
+    script.async = false;
+    script.defer = defer;
+    document.body.appendChild(script);
+}
+
 export const generateState = (): string => {
     
     const stateObj = JSON.stringify({
@@ -139,6 +148,8 @@ const UserInfo = (): JSX.Element => {
         <a target="_blank" rel="noreferrer" href={linkMobileId}>
             MobileId
         </a>
+        <span>  </span>
+        <button onClick={() => loadScript(process.env.PUBLIC_URL + '/browser-id.js')}>Load script</button>
         <span>  </span>
         <button onClick={() => logOut()}>Logout</button>
     </>
