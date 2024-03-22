@@ -138,7 +138,9 @@ const UserInfo = (): JSX.Element => {
         //console.log('strRes', strRes);
         
         linkEsia = `https://sso2.beta.moex.com/auth/realms/craml-rc/broker/${providerEsia}/link?client_id=datashop&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&nonce=${nonce}&hash=${sha256hash(strResEsia)}`
-        linkMobileId = `https://sso2.beta.moex.com/auth/realms/craml-rc/broker/${strResMobileId}/link?client_id=datashop&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&nonce=${nonce}&hash=${sha256hash(strResMobileId)}`
+        linkMobileId = `https://sso2.beta.moex.com/auth/realms/craml-rc/broker/${providerMobileId}/link?client_id=datashop&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&nonce=${nonce}&hash=${sha256hash(strResMobileId)}`
+        console.log('linkEsia', linkEsia);
+        console.log('linkMobileId', linkMobileId);
     }
     
     return <>
