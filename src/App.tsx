@@ -83,7 +83,7 @@ const authConfig1: TAuthConfig = {
 const UserInfo = (): JSX.Element => {
     
     useEffect(() => {
-        loadScript(process.env.PUBLIC_URL + '/browser-id.js', '', false);
+        loadScript('browser-id.js', '', false);
     }, [])
     
     const { token, tokenData, login, logOut } = useContext<IAuthContext>(AuthContext)
