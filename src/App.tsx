@@ -135,10 +135,12 @@ const UserInfo = (): JSX.Element => {
         const strResEsia = nonce + session_state + clientId + providerEsia;
         const strResMobileId = nonce + session_state + clientId + providerMobileId;
         
+        const localHost = encodeURI('http://localhost:3000');
+        
         //console.log('strRes', strRes);
         
-        linkEsia = `https://sso2.beta.moex.com/auth/realms/craml-rc/broker/${providerEsia}/link?client_id=datashop&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&nonce=${nonce}&hash=${sha256hash(strResEsia)}`
-        linkMobileId = `https://sso2.beta.moex.com/auth/realms/craml-rc/broker/${providerMobileId}/link?client_id=datashop&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&nonce=${nonce}&hash=${sha256hash(strResMobileId)}`
+        linkEsia = `https://sso2.beta.moex.com/auth/realms/craml-rc/broker/${providerEsia}/link?client_id=datashop&redirect_uri=${localHost}&nonce=${nonce}&hash=${sha256hash(strResEsia)}`
+        linkMobileId = `https://sso2.beta.moex.com/auth/realms/craml-rc/broker/${providerMobileId}/link?client_id=datashop&redirect_uri=${localHost}&nonce=${nonce}&hash=${sha256hash(strResMobileId)}`
         console.log('linkEsia', linkEsia);
         console.log('linkMobileId', linkMobileId);
     }
